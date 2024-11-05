@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<h1>Добро пожаловать на сайт Design.pro!</h1>
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<h2>Завершенные заявки:</h2>
+<div class="completed-requests-container">
+    {% if completed_requests %}
+        <div class="completed-requests">
+            {% for request in completed_requests %}
+                <div class="request-card">
+                    <p><strong>Статус:</strong> {{ request.get_status_display }}</p>
+                    <p><strong>Название:</strong> {{ request.title }}</p>
+                    <p><strong>Категория:</strong> {{ request.category }}</p>
+                    <img src="{{ request.photo.url }}" alt="Фото заявки" class="request-image"/>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Нет завершенных заявок.</p>
+    {% endif %}
+</div>
+
+    <div class="in-progress-counter" style="text-align: center; margin-top: 20px;">
+        <h3>Количество заявок в процессе: <strong>{{ in_progress_count }}</strong></h3>
+    </div>
+
+{% endblock %}
